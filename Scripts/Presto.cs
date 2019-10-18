@@ -6,6 +6,12 @@ namespace Bonwerk.Injection
     public static class Presto
     {
         private static Dictionary<Type, IProvider> Providers { get; } = new Dictionary<Type, IProvider>();
+
+        public static void Bind<T>(T obj) where T : class
+        {
+            var provider = new SingletonProvider(obj);
+            Providers[typeof(T)] = provider;
+        }
         
         public static void Bind<T>(IProvider provider) where T : class
         {
